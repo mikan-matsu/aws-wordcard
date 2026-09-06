@@ -1538,7 +1538,7 @@ export default function Home() {
           <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6" onClick={(e) => e.stopPropagation()}>
             <h3 className="text-base font-black text-slate-800 mb-2">利用データを削除してログアウトしますか？</h3>
             <p className="text-sm text-slate-500 font-bold mb-4">
-              学習進捗・マイ単語のすべてのデータが完全に削除され、ログアウトされます。この操作は取り消せません。
+              学習進捗・マイ単語のすべてのデータが完全に削除され、ログアウトされます。保持しているメールアドレスも破棄されます。この操作は取り消せません。
             </p>
             <p className="text-xs text-slate-400 font-bold mb-2">
               よろしければ「削除」と入力してください。
