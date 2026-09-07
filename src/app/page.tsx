@@ -805,7 +805,7 @@ export default function Home() {
       )}
 
       {/* 【メニューボタン】ハンバーガーメニュー。z-indexを[700]に設定して最前面に配置 */}
-      <div className="fixed top-4 left-3 z-[700] flex items-center gap-3">
+      <div className="fixed top-8 left-3 z-[700] flex items-center gap-3">
         <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-3 bg-white shadow-xl rounded-2xl text-slate-600 active:scale-95 transition-transform">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
@@ -891,7 +891,7 @@ export default function Home() {
       >
         <div className="w-[280px] h-full flex flex-col">
           {/* 【検索】単語・意味を部分一致で検索する */}
-          <div className="mt-20 mx-3 relative">
+          <div className="mt-24 mx-3 relative">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none">
               <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
@@ -1030,8 +1030,8 @@ export default function Home() {
       <main className="fixed inset-0 md:relative md:inset-auto md:flex-1 bg-blue-50/30 flex flex-col items-center p-4 pt-32 overflow-y-auto overflow-x-hidden transition-all duration-300">
         
         {/* 【アプリタイトル】カードと完全に中心を揃える（ビューポート中央固定）。左右のヘッダー要素は幅が変動しても重ならないよう幅を制限する */}
-        <div className="absolute top-8 left-1/2 z-[200] flex flex-col items-center transition-all duration-300 pointer-events-none max-w-[150px] sm:max-w-[220px] md:max-w-none -translate-x-1/2">
-          <h1 className={`font-extrabold tracking-wide select-none block text-blue-400 transition-all duration-300 truncate max-w-full text-base sm:text-2xl h-12 leading-[3rem] ${isSidebarOpen ? 'md:text-3xl' : 'md:text-4xl'}`} style={{ fontFamily: "'Noto Serif JP', 'Zen Old Mincho', 'Georgia', serif", fontWeight: 600, letterSpacing: '0.02em' }}>
+        <div className="absolute top-8 left-1/2 z-[200] flex flex-col items-center transition-all duration-300 pointer-events-none max-w-[190px] sm:max-w-[260px] md:max-w-none -translate-x-1/2">
+          <h1 className={`font-extrabold tracking-wide select-none block text-blue-400 transition-all duration-300 truncate max-w-full text-xl sm:text-3xl h-12 leading-[3rem] ${isSidebarOpen ? 'md:text-4xl' : 'md:text-5xl'}`} style={{ fontFamily: "'Noto Serif JP', 'Zen Old Mincho', 'Georgia', serif", fontWeight: 600, letterSpacing: '0.02em' }}>
             AWS WordCard
           </h1>
           {/* 【絞り込み中カテゴリ表示】「すべて」以外を選択中のみ表示 */}
@@ -1291,14 +1291,10 @@ export default function Home() {
           </AnimatePresence>
           </>
           )}
-          {/* 【使い方説明ボタン】カード右下角に固定。押すと使い方オーバーレイを再表示する */}
-          <button onClick={() => setShowOnboarding(true)} className="absolute bottom-6 right-6 z-[150] w-11 h-11 flex items-center justify-center bg-white shadow-xl rounded-full text-slate-500 font-black text-base active:scale-95 transition-transform">
-            ?
-          </button>
         </div>
 
         {/* 広告スペース：AdSense未設定時はプレースホルダーを表示 */}
-        <div className="w-full max-w-5xl h-20 mt-4 flex-shrink-0 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center z-[100] overflow-hidden">
+        <div className="w-full max-w-5xl h-16 sm:h-20 mt-2 sm:mt-3 flex-shrink-0 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center z-[100] overflow-hidden">
           {isAdEnabled ? (
             <ins
               className="adsbygoogle"
@@ -1309,23 +1305,35 @@ export default function Home() {
               data-full-width-responsive="true"
             />
           ) : (
-            <span className="text-slate-300 text-[10px] font-black tracking-widest select-none">広告スペース</span>
+            /* 【デザイン確認用モック】実際の広告のイメージを見るための仮表示。確認後に元のプレースホルダーへ戻す */
+            <div className="w-full h-full flex items-center gap-3 px-4">
+              <div className="w-14 h-14 flex-shrink-0 rounded-xl bg-gradient-to-br from-amber-300 to-orange-400" />
+              <div className="flex-1 min-w-0">
+                <div className="text-[9px] font-black text-slate-400 tracking-widest mb-0.5">広告</div>
+                <div className="text-sm font-bold text-slate-700 truncate">クラウドエンジニア向け学習教材、今なら30%オフ</div>
+                <div className="text-[11px] text-slate-400 truncate">example-ad.com</div>
+              </div>
+              <button className="flex-shrink-0 px-3 py-1.5 rounded-full bg-blue-400 text-white text-[11px] font-black">
+                詳しく見る
+              </button>
+            </div>
           )}
         </div>
 
-        {/* 【フッターリンク】使い方・用語一覧・プライバシーポリシーへの導線。横並び、狭い画面では横スクロール */}
-        <div className="w-full max-w-5xl mt-3 flex-shrink-0 flex items-center justify-center gap-5 overflow-x-auto whitespace-nowrap px-2 z-[100]">
-          <button onClick={() => setShowOnboarding(true)} className="text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
+        {/* 【フッターリンク】使い方・用語一覧・プライバシーポリシーへの導線。横並び、狭い画面では横スクロール。
+            justify-centerだとオーバーフロー時に両端の項目が初期スクロール位置から見切れるため、必ずjustify-startにする */}
+        <div className="w-full max-w-5xl mt-2 sm:mt-4 flex-shrink-0 flex items-center justify-start divide-x divide-slate-200 overflow-x-auto whitespace-nowrap px-2 z-[100]">
+          <button onClick={() => setShowOnboarding(true)} className="px-3 first:pl-0 text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
             使い方
           </button>
-          <Link href="/words" className="text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
+          <Link href="/words" className="px-3 text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
             用語一覧
           </Link>
-          <Link href="/privacy" className="text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
+          <Link href="/privacy" className="px-3 text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
             プライバシーポリシー
           </Link>
           {authUser && (
-            <button onClick={() => setShowDeleteAccountConfirm(true)} className="text-[11px] text-slate-400 hover:text-red-500 hover:underline flex-shrink-0">
+            <button onClick={() => setShowDeleteAccountConfirm(true)} className="px-3 text-[11px] text-slate-400 hover:text-red-500 hover:underline flex-shrink-0">
               利用データを削除してログアウト
             </button>
           )}

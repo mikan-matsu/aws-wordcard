@@ -81,12 +81,15 @@ export default async function WordsPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-800">
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      {/* 【固定ヘッダー】スクロールしても常にトップページへの導線が見えるようにする */}
+      <div className="sticky top-0 z-10 bg-white/90 backdrop-blur border-b border-slate-100 px-6 py-3">
         <Link href="/" className="text-sm text-blue-500 hover:underline">
           ← AWS WordCardで学習する
         </Link>
+      </div>
 
-        <h1 className="text-2xl font-bold mt-6 mb-2">用語一覧</h1>
+      <div className="max-w-3xl mx-auto px-6 py-8">
+        <h1 className="text-2xl font-bold mb-2">用語一覧</h1>
         <p className="text-sm text-slate-500 mb-10">
           AWS WordCardに収録されている全{words.length}語です。カード形式での学習は
           <Link href="/" className="text-blue-500 hover:underline">トップページ</Link>

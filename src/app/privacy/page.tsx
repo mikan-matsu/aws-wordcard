@@ -11,12 +11,15 @@ const CONTACT_EMAIL = "contact.driftcraft@gmail.com";
 export default function PrivacyPolicyPage() {
   return (
     <main className="min-h-screen bg-white text-slate-800">
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      {/* 【固定ヘッダー】スクロールしても常にトップページへの導線が見えるようにする */}
+      <div className="sticky top-0 z-10 bg-white/90 backdrop-blur border-b border-slate-100 px-6 py-3">
         <Link href="/" className="text-sm text-blue-500 hover:underline">
           ← AWS WordCardに戻る
         </Link>
+      </div>
 
-        <h1 className="text-2xl font-bold mt-6 mb-2">プライバシーポリシー</h1>
+      <div className="max-w-3xl mx-auto px-6 py-8">
+        <h1 className="text-2xl font-bold mb-2">プライバシーポリシー</h1>
         <p className="text-sm text-slate-400 mb-10">最終更新日: {LAST_UPDATED}</p>
 
         <div className="space-y-8 text-sm leading-relaxed">
