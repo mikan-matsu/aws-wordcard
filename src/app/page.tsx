@@ -1305,18 +1305,7 @@ export default function Home() {
               data-full-width-responsive="true"
             />
           ) : (
-            /* 【デザイン確認用モック】実際の広告のイメージを見るための仮表示。確認後に元のプレースホルダーへ戻す */
-            <div className="w-full h-full flex items-center gap-3 px-4">
-              <div className="w-14 h-14 flex-shrink-0 rounded-xl bg-gradient-to-br from-amber-300 to-orange-400" />
-              <div className="flex-1 min-w-0">
-                <div className="text-[9px] font-black text-slate-400 tracking-widest mb-0.5">広告</div>
-                <div className="text-sm font-bold text-slate-700 truncate">クラウドエンジニア向け学習教材、今なら30%オフ</div>
-                <div className="text-[11px] text-slate-400 truncate">example-ad.com</div>
-              </div>
-              <button className="flex-shrink-0 px-3 py-1.5 rounded-full bg-blue-400 text-white text-[11px] font-black">
-                詳しく見る
-              </button>
-            </div>
+            <span className="text-slate-300 text-[10px] font-black tracking-widest select-none">広告スペース</span>
           )}
         </div>
 
