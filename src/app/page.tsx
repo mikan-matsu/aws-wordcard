@@ -261,7 +261,7 @@ export default function Home() {
       await deleteUser();
     } catch (e) {
       console.error("利用データ削除エラー:", e);
-      alert("利用データの削除に失敗しました。時間をおいて再度お試しください。");
+      alert("学習データは削除されましたが、アカウントの削除に失敗しました。お手数ですがサポートにご連絡ください。");
       setIsDeletingAccount(false);
     }
   }, [authUser, isMockAuth, handleLogout]);
@@ -471,7 +471,7 @@ export default function Home() {
       if (editingMyWordId) {
         await client.models.MyWord.update({ id: editingMyWordId, ...trimmed });
       } else {
-        await client.models.MyWord.create({ id: `${Date.now()}_${authUser.username}`, ...trimmed });
+        await client.models.MyWord.create({ id: crypto.randomUUID(), ...trimmed });
       }
       closeAddModal();
       await fetchMyWords();
@@ -1106,7 +1106,7 @@ export default function Home() {
                   <div className="flex-1 flex flex-col items-center justify-center px-12 text-center pointer-events-none">
                     <h1
                       className="font-black text-slate-900 leading-none tracking-tighter select-none text-balance"
-                      style={{ fontSize: word.word.length > 10 ? "clamp(1.5rem, 6vw, 3.5rem)" : "clamp(2rem, 8vw, 5rem)", wordBreak: "auto-phrase", overflowWrap: "anywhere" } as React.CSSProperties}
+                      style={{ fontSize: word.word.length > 12 ? "clamp(1.3rem, 5vw, 3rem)" : word.word.length > 10 ? "clamp(1.5rem, 6vw, 3.5rem)" : "clamp(2rem, 8vw, 5rem)", wordBreak: "auto-phrase", overflowWrap: "anywhere" } as React.CSSProperties}
                     >
                       {word.word}
                     </h1>
