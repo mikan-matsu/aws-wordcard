@@ -39,12 +39,13 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* AdSenseのサイト確認クローラーはJSを実行せず静的HTML中の<script>タグを探すため、
+            next/scriptの遅延読み込み最適化(__next_sキュー)を経由しない素のscriptタグで出力する */}
         {adsenseClientId && (
-          <Script
+          <script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
             crossOrigin="anonymous"
-            strategy="afterInteractive"
           />
         )}
         {gaMeasurementId && (
