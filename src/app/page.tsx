@@ -1311,7 +1311,7 @@ export default function Home() {
 
         {/* 【フッターリンク】使い方・用語一覧・プライバシーポリシーへの導線。横並び、狭い画面では横スクロール。
             justify-centerだとオーバーフロー時に両端の項目が初期スクロール位置から見切れるため、必ずjustify-startにする */}
-        <div className="w-full max-w-5xl mt-2 sm:mt-4 flex-shrink-0 flex items-center justify-start divide-x divide-slate-200 overflow-x-auto whitespace-nowrap px-2 z-[100]">
+        <div className="hide-scrollbar w-full max-w-5xl mt-2 sm:mt-4 flex-shrink-0 flex items-center justify-start divide-x divide-slate-200 overflow-x-auto whitespace-nowrap px-2 z-[100]">
           <button onClick={() => setShowOnboarding(true)} className="px-3 first:pl-0 text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
             使い方
           </button>
@@ -1591,6 +1591,9 @@ export default function Home() {
         .scrollable-bg:hover, .scrollable-bg:focus-within {
           background: rgba(147, 197, 253, 0.15);
         }
+        /* フッターリンク行：横スクロール時にネイティブのスクロールバーがリンク文字と重なって見えるため非表示にする */
+        .hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
       `}</style>
     </div>
   );
