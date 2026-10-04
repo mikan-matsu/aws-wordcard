@@ -17,13 +17,38 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteTitle = "AWS WordCard | クラウド・ITインフラ用語帳";
+const siteDescription = "AWSやクラウド、ネットワーク、セキュリティのIT用語をカード形式で学べる単語帳アプリ。基本用語からAWSの実サービス名まで収録。";
+
 export const metadata = {
-  title: "AWS WordCard | クラウド・ITインフラ用語帳",
-  description: "AWSやクラウド、ネットワーク、セキュリティのIT用語をカード形式で学べる単語帳アプリ。基本用語からAWSの実サービス名まで収録。",
+  metadataBase: new URL("https://wordcard.link"),
+  title: siteTitle,
+  description: siteDescription,
   manifest: "/manifest.json",
   icons: {
     icon: ["/icon-192.png", "/icon-512.png"],
     apple: "/icon-192.png",
+  },
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: "https://wordcard.link",
+    siteName: "AWS WordCard",
+    images: [
+      {
+        url: "/branding/wordcard-logo-flat.jpg",
+        width: 1368,
+        height: 784,
+      },
+    ],
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/branding/wordcard-logo-flat.jpg"],
   },
 };
 
