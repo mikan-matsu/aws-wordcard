@@ -1293,8 +1293,8 @@ export default function Home() {
           )}
         </div>
 
-        {/* 広告スペース：AdSense未設定時はプレースホルダーを表示 */}
-        <div className="w-full max-w-5xl h-16 sm:h-20 mt-2 sm:mt-3 flex-shrink-0 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center z-[100] overflow-hidden">
+        {/* 広告スペース：AdSense未設定時はプレースホルダーを表示。配信された広告がunfilled(空)の場合はglobals.cssのルールでこの枠ごと非表示にする */}
+        <div className="ad-slot-wrapper w-full max-w-5xl h-16 sm:h-20 mt-2 sm:mt-3 flex-shrink-0 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center z-[100] overflow-hidden">
           {isAdEnabled ? (
             <ins
               className="adsbygoogle"
