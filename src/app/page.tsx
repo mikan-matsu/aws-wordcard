@@ -51,7 +51,7 @@ const ONBOARDING_STEPS: {
 }[] = [
   {
     title: "カードをめくって意味を確認",
-    description: "単語カードをタップ（クリック）すると裏返り、意味と詳細が表示されます。",
+    description: "単語カードの右半分をタップ（クリック）すると裏返り、意味と詳細が表示されます。左半分をタップすると前の単語に戻ります。下部の矢印ボタン（‹ ›）でも同じように前後の単語に移動できます。",
     images: [
       { src: "/onboarding/step1-front.png", alt: "カード表面", caption: "タップ前" },
       { src: "/onboarding/step1-back.png", alt: "カード裏面", caption: "タップ後" },
@@ -722,12 +722,21 @@ export default function Home() {
     }
   }, [isFlipped, visibleWords.length, page]);
 
-  // 【広告表示】AdSense設定済みの場合、単語切り替え時に広告ユニットを更新
+  // 【広告表示】AdSense設定済みの場合、広告ユニットを初期化する
   const isAdEnabled = Boolean(ADSENSE_CLIENT_ID && ADSENSE_SLOT_ID);
+  const adPushed = useRef(false);
   useEffect(() => {
-    if (!isAdEnabled) return;
+    if (!isAdEnabled || adPushed.current) return;
+    // data-ad-status が既に付いている場合は、Auto ads等により既に初期化済みなので二重pushしない
+    // (adsbygoogle.push()の二重呼び出しは"already have ads in them"エラーの原因になる)
+    const insEl = document.querySelector("ins.adsbygoogle");
+    if (insEl?.hasAttribute("data-ad-status")) {
+      adPushed.current = true;
+      return;
+    }
     try {
       ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+      adPushed.current = true;
     } catch (e) {
       console.error("AdSense読み込みエラー:", e);
     }
@@ -1316,17 +1325,17 @@ export default function Home() {
         {/* 【フッターリンク】使い方・用語一覧・プライバシーポリシーへの導線。横並び、狭い画面では横スクロール。
             justify-centerだとオーバーフロー時に両端の項目が初期スクロール位置から見切れるため、必ずjustify-startにする */}
         <div className="hide-scrollbar w-full max-w-5xl mt-2 sm:mt-4 flex-shrink-0 flex items-center justify-start divide-x divide-slate-200 overflow-x-auto whitespace-nowrap px-2 z-[100]">
-          <button onClick={() => setShowOnboarding(true)} className="px-3 first:pl-0 text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
+          <button onClick={() => setShowOnboarding(true)} className="px-3 py-2 first:pl-0 text-xs text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
             使い方
           </button>
-          <Link href="/words" className="px-3 text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
+          <Link href="/words" className="px-3 py-2 text-xs text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
             用語一覧
           </Link>
-          <Link href="/privacy" className="px-3 text-[11px] text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
+          <Link href="/privacy" className="px-3 py-2 text-xs text-slate-400 hover:text-slate-600 hover:underline flex-shrink-0">
             プライバシーポリシー
           </Link>
           {authUser && (
-            <button onClick={() => setShowDeleteAccountConfirm(true)} className="px-3 text-[11px] text-slate-400 hover:text-red-500 hover:underline flex-shrink-0">
+            <button onClick={() => setShowDeleteAccountConfirm(true)} className="px-3 py-2 text-xs text-slate-400 hover:text-red-500 hover:underline flex-shrink-0">
               利用データを削除してログアウト
             </button>
           )}

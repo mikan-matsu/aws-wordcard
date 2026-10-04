@@ -25,6 +25,9 @@ export const metadata = {
   title: siteTitle,
   description: siteDescription,
   manifest: "/manifest.json",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: ["/icon-192.png", "/icon-512.png"],
     apple: "/icon-192.png",

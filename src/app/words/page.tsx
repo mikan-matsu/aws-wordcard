@@ -4,6 +4,9 @@ import outputs from "../../../amplify_outputs.json";
 export const metadata = {
   title: "用語一覧 | AWS WordCard",
   description: "AWS WordCardに収録されているクラウド・ネットワーク・セキュリティ用語の一覧です。基本用語からAWSの実サービス名まで、カテゴリ別に確認できます。",
+  alternates: {
+    canonical: "/words",
+  },
 };
 
 export const revalidate = 3600;

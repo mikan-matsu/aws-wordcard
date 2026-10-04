@@ -3,6 +3,9 @@ import Link from "next/link";
 export const metadata = {
   title: "プライバシーポリシー | AWS WordCard",
   description: "AWS WordCard(ワードカード)のプライバシーポリシーです。取得する情報の範囲、Cookieの利用、Google Analytics・Google AdSenseの利用について説明しています。",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 const LAST_UPDATED = "2026年9月6日";
