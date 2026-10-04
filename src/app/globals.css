@@ -25,7 +25,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* AdSenseが広告を配信できなかった(unfilled)場合、空の広告枠を表示し続けないよう枠ごと隠す */
-.ad-slot-wrapper:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+/* AdSense広告枠：実際に広告が配信された(data-ad-status="filled")時だけ表示する。
+   unfilledや判定待ち(属性なし)の間はデフォルトで非表示にする */
+.ad-slot-wrapper {
   display: none;
+}
+.ad-slot-wrapper:has(ins.adsbygoogle[data-ad-status="filled"]) {
+  display: flex;
 }

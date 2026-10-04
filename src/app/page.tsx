@@ -1293,9 +1293,11 @@ export default function Home() {
           )}
         </div>
 
-        {/* 広告スペース：AdSense未設定時はプレースホルダーを表示。配信された広告がunfilled(空)の場合はglobals.cssのルールでこの枠ごと非表示にする */}
-        <div className="ad-slot-wrapper w-full max-w-5xl h-16 sm:h-20 mt-2 sm:mt-3 flex-shrink-0 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center z-[100] overflow-hidden">
-          {isAdEnabled ? (
+        {/* 広告スペース：AdSense未設定時は常時プレースホルダーを表示(開発確認用)。
+            設定済みの場合はad-slot-wrapperにより、広告が実際に配信された(data-ad-status="filled")時だけ表示する。
+            unfilledや判定待ち(属性なし)の間は枠ごと非表示にする(globals.css参照) */}
+        {isAdEnabled ? (
+          <div className="ad-slot-wrapper w-full max-w-5xl h-16 sm:h-20 mt-2 sm:mt-3 flex-shrink-0 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl items-center justify-center z-[100] overflow-hidden">
             <ins
               className="adsbygoogle"
               style={{ display: "block", width: "100%", height: "100%" }}
@@ -1304,10 +1306,12 @@ export default function Home() {
               data-ad-format="auto"
               data-full-width-responsive="true"
             />
-          ) : (
+          </div>
+        ) : (
+          <div className="w-full max-w-5xl h-16 sm:h-20 mt-2 sm:mt-3 flex-shrink-0 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center z-[100] overflow-hidden">
             <span className="text-slate-300 text-[10px] font-black tracking-widest select-none">広告スペース</span>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* 【フッターリンク】使い方・用語一覧・プライバシーポリシーへの導線。横並び、狭い画面では横スクロール。
             justify-centerだとオーバーフロー時に両端の項目が初期スクロール位置から見切れるため、必ずjustify-startにする */}
