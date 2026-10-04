@@ -36,9 +36,9 @@ export const metadata = {
     siteName: "AWS WordCard",
     images: [
       {
-        url: "/branding/wordcard-logo-flat.jpg",
-        width: 1368,
-        height: 784,
+        url: "/branding/wordcard-og-image.png",
+        width: 900,
+        height: 600,
       },
     ],
     locale: "ja_JP",
@@ -48,7 +48,7 @@ export const metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/branding/wordcard-logo-flat.jpg"],
+    images: ["/branding/wordcard-og-image.png"],
   },
 };
 
