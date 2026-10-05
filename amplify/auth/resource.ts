@@ -13,17 +13,13 @@ export const auth = defineAuth({
       },
       callbackUrls: [
         'http://localhost:3000/',
-        'https://develop.d22seqgs51jtrz.amplifyapp.com/',
         'https://main.d22seqgs51jtrz.amplifyapp.com/',
-        'https://develop.wordcard.link/',
         'https://wordcard.link/',
         'https://www.wordcard.link/',
       ],
       logoutUrls: [
         'http://localhost:3000/',
-        'https://develop.d22seqgs51jtrz.amplifyapp.com/',
         'https://main.d22seqgs51jtrz.amplifyapp.com/',
-        'https://develop.wordcard.link/',
         'https://wordcard.link/',
         'https://www.wordcard.link/',
       ],

@@ -148,9 +148,8 @@ export default function Home() {
   const [[page, direction], setPage] = useState([0, 0]); // ページ遷移の方向を記録（アニメーション用）
   const isTransitioning = useRef(false); // アニメーション実行中フラグ（重複アクション防止）
 
-  // 【開発用モックログイン】本番ビルドではdevelopホストのみ有効（mainでは常に無効）。?mockLogin=1 でバックエンド呼び出しなしにログイン済みUIを再現する
-  const isMockAuthAllowedHost = typeof window !== "undefined" &&
-    (process.env.NODE_ENV !== "production" || window.location.hostname.startsWith("develop."));
+  // 【開発用モックログイン】本番ビルド(mainのみ)では常に無効。?mockLogin=1 でバックエンド呼び出しなしにログイン済みUIを再現する
+  const isMockAuthAllowedHost = typeof window !== "undefined" && process.env.NODE_ENV !== "production";
   // 初期値はURLの?mockLogin=1から。以降は画面右上のトグルボタンでURLを書き換えずに切り替えられる
   const [mockLoginToggle, setMockLoginToggle] = useState(
     () => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("mockLogin") === "1"
@@ -200,7 +199,7 @@ export default function Home() {
 
   const handleGoogleLogin = useCallback(() => {
     if (isMockAuthAllowedHost) {
-      // develop環境・ローカル開発では実際のGoogle認証を経由せず、ボタン操作だけでログイン済みUIを再現する
+      // ローカル開発では実際のGoogle認証を経由せず、ボタン操作だけでログイン済みUIを再現する
       setMockLoginToggle(true);
       return;
     }
@@ -211,7 +210,7 @@ export default function Home() {
     setShowEmailPopover(false);
     if (isMockAuth) {
       // 「今まさにモックログイン中」の場合のみローカル状態だけ戻す。
-      // isMockAuthAllowedHost(develop等のホストかどうか)だけで判定すると、実際にGoogleでログイン済みの
+      // isMockAuthAllowedHost(ローカル開発かどうか)だけで判定すると、実際にGoogleでログイン済みの
       // セッションでログアウトを押した際に本物のsignOut()が呼ばれず、セッションが残ったままUIだけ
       // 宙ぶらりんになる不具合があったため、実際にモック中かどうかで判定するよう修正
       setAuthUser(null);
@@ -227,7 +226,7 @@ export default function Home() {
   const handleDeleteAccount = useCallback(async () => {
     if (!authUser) return;
     if (isMockAuth) {
-      // develop等のモックログイン中は実際のバックエンド操作をせず、ログアウトのみ行う
+      // モックログイン中は実際のバックエンド操作をせず、ログアウトのみ行う
       setShowDeleteAccountConfirm(false);
       handleLogout();
       return;

@@ -4,7 +4,7 @@ import "./globals.css";
 import ConfigureAmplifyClient from './configure-amplify';
 
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
-// Google Analytics(GA4): main環境のみAmplify Consoleで環境変数を設定する想定。未設定のdevelop/ローカルでは読み込まれない。
+// Google Analytics(GA4): main環境のみAmplify Consoleで環境変数を設定する想定。未設定のローカルでは読み込まれない。
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 const geistSans = Geist({
