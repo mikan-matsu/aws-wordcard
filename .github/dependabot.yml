@@ -16,6 +16,11 @@ updates:
       # Types follow the Node.js major in .nvmrc / the Lambda runtime; bump them together by hand.
       - dependency-name: '@types/node'
         update-types: ['version-update:semver-major']
+      # CI cannot run `ampx pipeline-deploy` (needs AWS), so a broken backend tool only shows up
+      # in the Amplify production build. backend 1.25.1 / backend-cli 1.10.0 failed there
+      # (2026-11-08); update these by hand and watch the Amplify build. Security updates still come.
+      - dependency-name: '@aws-amplify/backend'
+      - dependency-name: '@aws-amplify/backend-cli'
 
   - package-ecosystem: github-actions
     directory: /
