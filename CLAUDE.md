@@ -27,6 +27,6 @@ develop環境は廃止した(同期コストがこの規模のトラフィック
 
 - `npx playwright test` — `next start` を127.0.0.1:4319で起動し、PC/スマホでスモークテスト(`test/e2e/`)。AppSyncはテスト内で模擬するのでAWSに触れない。先に `npm run build`。
 - CI(`.github/workflows/ci.yml`)は本番のAmplifyと同じ `npm install` で入れ、`test/fixtures/ci-amplify-outputs.json`(ダミー値)を `amplify_outputs.json` にコピーしてビルド・テストする。本物の `amplify_outputs.json` はコミットしない。
-- Node.jsは `.nvmrc`(22)。`amplify.yml` もNode 22でビルドする。Node 22.18以上・24では、Node自身の型除去が働いて `ampx pipeline-deploy` が `amplify/auth/resource` を解決できず失敗する(2026-11-08)。amplify.yml で `NODE_OPTIONS=--no-experimental-strip-types` を付けて回避。backend/backend-cli は検証済みの 1.24.0/1.9.0 に固定し、Dependabotの対象外。CIは ampx を実行しないので、この種の失敗はAmplifyのビルドでしか分からない。
+- Node.jsは `.nvmrc`(22)。`amplify.yml` もNode 22でビルドする。Node 22.18以上・24では、Node自身の型除去が働いて `ampx pipeline-deploy` が `amplify/auth/resource` を解決できず失敗する(2026-11-08)。backend.ts の相対importに `.ts` を付け(amplify/tsconfig.json に allowImportingTsExtensions)、CIで `test/amplify-backend-load.mjs` が同じ読み込み方を確認する。backend/backend-cli は検証済みの 1.24.0/1.9.0 に固定し、Dependabotの対象外。CIは ampx を実行しないので、この種の失敗はAmplifyのビルドでしか分からない。
 - Dependabotは月1回・公開90日以上の版のみ(セキュリティ更新は即時)。メジャー以外はテストが通れば自動マージ→Amplifyが本番ビルド。
 - 全プロジェクトの一覧と整合性チェック手順は driftcraft リポジトリの `docs/projects.md`。

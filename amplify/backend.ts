@@ -1,8 +1,8 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { BillingMode } from 'aws-cdk-lib/aws-dynamodb';
 import { PredefinedMetric, ScalableTarget, ServiceNamespace } from 'aws-cdk-lib/aws-applicationautoscaling';
-import { auth } from './auth/resource';
-import { data } from './data/resource';
+import { auth } from './auth/resource.ts';
+import { data } from './data/resource.ts';
 
 const backend = defineBackend({
   auth,
