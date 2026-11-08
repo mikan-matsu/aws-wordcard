@@ -22,3 +22,11 @@ develop環境は廃止した(同期コストがこの規模のトラフィック
 一度起動したローカルのdevサーバーを、確認が終わったからといって勝手に`kill`しないこと。
 - 理由: ユーザー自身がブラウザで実際の画面を見ながら並行して確認・作業するために起動したままにしておきたいため。Claude側の確認作業が終わったタイミングで自動的に止めると、ユーザーが見ている画面が急に落ちてしまう。
 - 対応: `npm run dev`の代わりに`scripts/dev-with-idle-timeout.sh [アイドル秒数(デフォルト600)] [ログパス]`で起動する。ページアクセス・ホットリロードが一定時間(デフォルト10分)無ければ自動でプロセスを停止する仕組みなので、手動でkillする必要がない。ビルド確認(`npm run build`)などでポートが競合する場合を除き、確認後もこのまま放置してよい。ユーザーから明示的に「止めて」と言われた時だけ`kill`する。
+
+## テストと依存関係の更新(2026-11-08追加)
+
+- `npx playwright test` — `next start` を127.0.0.1:4319で起動し、PC/スマホでスモークテスト(`test/e2e/`)。AppSyncはテスト内で模擬するのでAWSに触れない。先に `npm run build`。
+- CI(`.github/workflows/ci.yml`)は本番のAmplifyと同じ `npm install` で入れ、`test/fixtures/ci-amplify-outputs.json`(ダミー値)を `amplify_outputs.json` にコピーしてビルド・テストする。本物の `amplify_outputs.json` はコミットしない。
+- Node.jsは `.nvmrc`(24)。`amplify.yml` もNode 24でビルドする。
+- Dependabotは月1回・公開90日以上の版のみ(セキュリティ更新は即時)。メジャー以外はテストが通れば自動マージ→Amplifyが本番ビルド。
+- 全プロジェクトの一覧と整合性チェック手順は driftcraft リポジトリの `docs/projects.md`。

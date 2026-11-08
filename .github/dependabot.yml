@@ -1,0 +1,24 @@
+version: 2
+updates:
+  # Monthly check, and only versions released at least 90 days ago (stable for
+  # three months). Security updates are separate and not held back by this.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 90
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 90
+    groups:
+      actions:
+        patterns: ['*']

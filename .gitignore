@@ -64,3 +64,7 @@ amplifytools.xcconfig
 # Amplify Gen2
 .amplify/
 amplify_outputs*
+
+# Playwright
+test-results/
+playwright-report/
