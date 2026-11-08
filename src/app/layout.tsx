@@ -76,6 +76,26 @@ export default function RootLayout({
             crossOrigin="anonymous"
           />
         )}
+        {/* Page-view count for the weekly access report (DriftCraft TechBlogStack, lambda/page-views): only the path and
+            the referrer are sent, no cookies; in-app page moves count as internal views. */}
+        <Script id="page-views" strategy="afterInteractive">
+          {`
+              (function () {
+                if (!/^(www\.)?wordcard\.link$/.test(location.hostname) || !navigator.sendBeacon) return;
+                var url = 'https://8npj0p1tr3.execute-api.us-east-1.amazonaws.com/hit';
+                var last = '';
+                function send(ref) {
+                  if (location.pathname === last) return;
+                  last = location.pathname;
+                  navigator.sendBeacon(url, JSON.stringify({ path: location.pathname, ref: ref }));
+                }
+                send(document.referrer);
+                var push = history.pushState;
+                history.pushState = function () { push.apply(this, arguments); send(location.origin + '/'); };
+                addEventListener('popstate', function () { send(location.origin + '/'); });
+              })();
+          `}
+        </Script>
         {gaMeasurementId && (
           <>
             <Script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`} strategy="afterInteractive" />
@@ -84,7 +104,12 @@ export default function RootLayout({
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', '${gaMeasurementId}');
+                gtag('config', '${gaMeasurementId}', {
+                  // Never send the query string: after Google sign-in the URL carries the one-time OAuth code.
+                  page_location: location.origin + location.pathname,
+                  allow_google_signals: false,
+                  allow_ad_personalization_signals: false,
+                });
               `}
             </Script>
           </>
