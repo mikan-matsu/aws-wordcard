@@ -84,7 +84,21 @@ export default function RootLayout({
                 if (!/^(www\.)?wordcard\.link$/.test(location.hostname) || !navigator.sendBeacon) return;
                 var url = 'https://8npj0p1tr3.execute-api.us-east-1.amazonaws.com/hit';
                 var last = '';
+                // Owner opt-out shared by every drift-projects site: open a page with #nocount once per browser (#count undoes it).
+                function noCount() {
+                  try {
+                    var h = location.hash;
+                    if (h === '#nocount' || h === '#count') {
+                      if (h === '#nocount') localStorage.setItem('dc_nocount', '1'); else localStorage.removeItem('dc_nocount');
+                      history.replaceState(history.state, '', location.pathname + location.search);
+                      alert(h === '#nocount' ? 'このブラウザからの閲覧は、アクセス数に数えません。(元に戻すには #count を付けて開く)' : 'このブラウザからの閲覧を、アクセス数に数えるように戻しました。');
+                    }
+                    return localStorage.getItem('dc_nocount') === '1';
+                  } catch (e) { return false; }
+                }
+                addEventListener('hashchange', noCount);
                 function send(ref) {
+                  if (noCount()) return;
                   if (location.pathname === last) return;
                   last = location.pathname;
                   navigator.sendBeacon(url, JSON.stringify({ path: location.pathname, ref: ref }));
